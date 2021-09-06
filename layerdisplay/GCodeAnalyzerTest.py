@@ -1,4 +1,4 @@
-from GCodeAnalyzer import GCodeAnalyzer
+from .GCodeAnalyzer import GCodeAnalyzer
 import time
 import os
 import threading
@@ -19,8 +19,8 @@ def analyze_gcode():
 
 	end = time.time()
 	print("Analyzation complete")
-	print(end - start)
-	print("%d layers in gcode" % layer_info.get_layer_count())
+	print((end - start))
+	print(("%d layers in gcode" % layer_info.get_layer_count()))
 
 	gcode.close()
 
@@ -30,4 +30,4 @@ thread.start()
 
 while gCodeAnalyzer.is_working():
 	file_pos = float(gCodeAnalyzer.get_current_file_position())
-	print("%%%.1f" %  (file_pos / file_size * 100))
+	print(("%%%.1f" %  (file_pos / file_size * 100)))

@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, division, print_function, unicode_literals
+
 import os
-from GCodeAnalyzer import GCodeAnalyzer
-from Event import Event
+from .GCodeAnalyzer import GCodeAnalyzer
+from .Event import Event
 from threading import Thread, Timer
 import threading
 
@@ -60,7 +63,10 @@ class PrintJob:
 		self._gcode_analyzer = GCodeAnalyzer()
 		self._gcode_analyzer.prepare_for_job()
 		def do_analysis():
-			gcode = file(file_path, "r")
+			#gcode = file(file_path, "r") - DLA
+			# While this has been deprecated for a while, it went
+			#  away in Python 3. Replace with equivalent "open".
+			gcode = open(file_path, "r")
 			fileSize = os.path.getsize(file_path)
 			self.layer_change_info = self._gcode_analyzer.get_print_job_layer_information(gcode, self.file_size)
 			self.on_analysis_complete.invoke()

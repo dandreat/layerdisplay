@@ -1,6 +1,9 @@
-from StepperTracker import StepperTracker, PositioningMode
-from PrintJobLayerInformation import PrintJobLayerInformation
-import GCodeLineParser
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, division, print_function, unicode_literals
+
+from .StepperTracker import StepperTracker, PositioningMode
+from .PrintJobLayerInformation import PrintJobLayerInformation
+from . import GCodeLineParser
 
 EXTRUSIONS_REQUIRED_FOR_FIRST_LAYER = 3
 
@@ -30,7 +33,15 @@ class GCodeAnalyzer:
 
 		file_position = 0
 
-		for line in gcode:
+		#for line in gcode: #- DLA
+		# Python 3+ apparently has issues with using tell() in this
+		#  style of for loop. Use the while true and readline() 
+		#  style instead. Just waiting for this to mysteriously
+		#  break again...
+		while True:
+			line = gcode.readline()
+			if not line:
+				break
 			# Keep track of out position in the file
 			file_position = gcode.tell() + len(line)
 			self._current_file_position = file_position

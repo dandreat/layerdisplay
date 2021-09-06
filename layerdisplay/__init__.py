@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
+from __future__ import absolute_import, division, print_function, unicode_literals
 # coding=utf-8
-from __future__ import absolute_import
+
 
 import os
 import octoprint.plugin
@@ -69,6 +71,9 @@ class LayerDisplayPlugin(octoprint.plugin.EventHandlerPlugin,
 		import flask
 		result = LayerInfoPusher.get_layer_info_string(self.print_job)
 		return flask.jsonify(layerString = result)
+
+__plugin_name__ = "LayerDisplay"
+__plugin_pythoncompat__ = ">=2.7,<4"
 
 def __plugin_load__():
 	global __plugin_implementation__
